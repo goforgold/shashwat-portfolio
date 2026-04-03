@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import type { FormEvent } from "react";
-import { supabase } from "@/lib/supabase";
+import { getSupabase } from "@/lib/supabase";
 
 export function ContactForm() {
   const [submitted, setSubmitted] = useState(false);
@@ -15,7 +15,7 @@ export function ContactForm() {
     setError("");
 
     const formData = new FormData(e.currentTarget);
-    const { error } = await supabase.from("contact_messages").insert({
+    const { error } = await getSupabase().from("contact_messages").insert({
       name: formData.get("name") as string,
       email: formData.get("email") as string,
       message: formData.get("message") as string,
