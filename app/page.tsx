@@ -60,7 +60,7 @@ export default function Home() {
               src="/shashwat-hero.jpg"
               alt="Shashwat Tripathi"
               fill
-              className="object-cover object-[center_35%] scale-[1.3]"
+              className="object-cover scale-[1.5] translate-y-[15%]"
               sizes="160px"
               priority
             />
