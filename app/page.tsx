@@ -55,13 +55,13 @@ export default function Home() {
         <div className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[600px] w-[600px] rounded-full bg-amber-500/[0.03] blur-3xl" />
 
         <div className="relative mx-auto max-w-5xl px-6 py-16 text-center">
-          <div className="animate-in mx-auto mb-8 relative h-28 w-28 overflow-hidden rounded-full border-2 border-amber-500/30 shadow-lg shadow-amber-500/10">
+          <div className="animate-in mx-auto mb-8 relative h-40 w-40 overflow-hidden rounded-full border-2 border-amber-500/30 shadow-lg shadow-amber-500/10">
             <Image
               src="/shashwat-hero.jpg"
               alt="Shashwat Tripathi"
               fill
-              className="object-cover"
-              sizes="112px"
+              className="object-cover object-[center_15%] scale-[1.4]"
+              sizes="160px"
               priority
             />
           </div>
