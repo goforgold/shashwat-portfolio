@@ -41,7 +41,7 @@ export default function Home() {
   return (
     <>
       {/* Hero */}
-      <section className="relative flex min-h-[calc(100dvh-4rem)] items-center justify-center overflow-hidden">
+      <section className="relative flex min-h-[max(calc(100dvh-4rem),600px)] items-center justify-center overflow-hidden">
         {/* Subtle dot grid */}
         <div
           className="pointer-events-none absolute inset-0 opacity-[0.03] dark:opacity-[0.04]"
@@ -54,7 +54,7 @@ export default function Home() {
         {/* Centered subtle glow */}
         <div className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[600px] w-[600px] rounded-full bg-amber-500/[0.03] blur-3xl" />
 
-        <div className="relative mx-auto max-w-5xl px-6 py-24 text-center">
+        <div className="relative mx-auto max-w-5xl px-6 py-16 text-center">
           <div className="animate-in mx-auto mb-8 relative h-28 w-28 overflow-hidden rounded-full border-2 border-amber-500/30 shadow-lg shadow-amber-500/10">
             <Image
               src="/shashwat-hero.jpg"
@@ -89,7 +89,7 @@ export default function Home() {
           >
             <Link
               href="/projects"
-              className="inline-flex h-12 items-center justify-center rounded-full bg-gradient-to-r from-amber-500 to-orange-500 px-8 text-sm font-medium text-white transition-opacity hover:opacity-90"
+              className="inline-flex h-12 items-center justify-center rounded-full bg-gradient-to-r from-amber-600 to-orange-600 px-8 text-sm font-medium text-white transition-opacity hover:opacity-90 dark:from-amber-500 dark:to-orange-500"
             >
               View my work
               <svg
@@ -112,11 +112,37 @@ export default function Home() {
               Get in touch
             </Link>
           </div>
+
+          {/* Scroll indicator */}
+          <div
+            className="animate-in mt-16"
+            style={{ animationDelay: "600ms" }}
+          >
+            <a
+              href="#work"
+              className="inline-block text-muted/50 transition-colors hover:text-muted"
+              aria-label="Scroll down"
+            >
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="animate-bounce"
+              >
+                <polyline points="6 9 12 15 18 9" />
+              </svg>
+            </a>
+          </div>
         </div>
       </section>
 
       {/* Featured Projects */}
-      <section className="border-t border-line py-24">
+      <section id="work" className="border-t border-line py-24 scroll-mt-16">
         <div className="mx-auto max-w-5xl px-6">
           <div className="flex items-end justify-between">
             <div>
@@ -232,7 +258,7 @@ export default function Home() {
           </p>
           <Link
             href="/contact"
-            className="mt-8 inline-flex h-12 items-center justify-center rounded-full bg-gradient-to-r from-amber-500 to-orange-500 px-8 text-sm font-medium text-white transition-opacity hover:opacity-90"
+            className="mt-8 inline-flex h-12 items-center justify-center rounded-full bg-gradient-to-r from-amber-600 to-orange-600 px-8 text-sm font-medium text-white transition-opacity hover:opacity-90 dark:from-amber-500 dark:to-orange-500"
           >
             Get in touch
           </Link>
