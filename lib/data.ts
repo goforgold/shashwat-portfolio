@@ -1,8 +1,26 @@
+const CAREER_START = new Date(2012, 6, 1); // July 1, 2012
+
+export function getExperienceYears(): string {
+  const now = new Date();
+  const years = now.getFullYear() - CAREER_START.getFullYear();
+  const months = now.getMonth() - CAREER_START.getMonth();
+  const totalMonths = years * 12 + months;
+  const fullYears = Math.floor(totalMonths / 12);
+  const remainingMonths = totalMonths % 12;
+
+  // Show "X+" when 1–10 months past, round up when 11–12 months past
+  if (remainingMonths >= 11) {
+    return `${fullYears + 1}`;
+  }
+  return `${fullYears}+`;
+}
+
 export const siteConfig = {
   name: "Shashwat Tripathi",
   title: "Full Stack Engineer & Cloud Architect",
-  description:
-    "I architect cloud infrastructure, build full-stack systems, and engineer data pipelines. Over a decade of shipping production software across enterprise and startups.",
+  get description() {
+    return `I architect cloud infrastructure, build full-stack systems, and engineer data pipelines. ${getExperienceYears()} years of shipping production software across enterprise and startups.`;
+  },
   email: "me@shashwat.io",
   url: "https://shashwat.io",
   links: {

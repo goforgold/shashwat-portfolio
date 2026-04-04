@@ -1,39 +1,12 @@
 import Image from "next/image";
 import Link from "next/link";
-import { projects, skillCategories, siteConfig } from "@/lib/data";
-
-const categoryColors: Record<string, { label: string; pill: string }> = {
-  Languages: {
-    label: "text-amber-500 dark:text-amber-400",
-    pill: "border-amber-500/25 text-amber-700 dark:text-amber-400 hover:bg-amber-500/10",
-  },
-  "Cloud & Infrastructure": {
-    label: "text-sky-500 dark:text-sky-400",
-    pill: "border-sky-500/25 text-sky-700 dark:text-sky-400 hover:bg-sky-500/10",
-  },
-  Frameworks: {
-    label: "text-violet-500 dark:text-violet-400",
-    pill: "border-violet-500/25 text-violet-700 dark:text-violet-400 hover:bg-violet-500/10",
-  },
-  "Data Engineering": {
-    label: "text-emerald-500 dark:text-emerald-400",
-    pill: "border-emerald-500/25 text-emerald-700 dark:text-emerald-400 hover:bg-emerald-500/10",
-  },
-  Databases: {
-    label: "text-rose-500 dark:text-rose-400",
-    pill: "border-rose-500/25 text-rose-700 dark:text-rose-400 hover:bg-rose-500/10",
-  },
-  "CI/CD & DevOps": {
-    label: "text-cyan-500 dark:text-cyan-400",
-    pill: "border-cyan-500/25 text-cyan-700 dark:text-cyan-400 hover:bg-cyan-500/10",
-  },
-};
-
-const companyColors: Record<string, string> = {
-  DMG: "bg-sky-500/10 text-sky-600 dark:text-sky-400",
-  Sabre: "bg-violet-500/10 text-violet-600 dark:text-violet-400",
-  Personal: "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400",
-};
+import { projects, skillCategories } from "@/lib/data";
+import { companyColors, categoryColors } from "@/lib/colors";
+import { ExperienceYears } from "@/components/dynamic-year";
+import { SkillIcon } from "@/components/skill-icon";
+import { SectionHeader } from "@/components/section-header";
+import { TechBadge } from "@/components/tech-badge";
+import { ArrowRightIcon, ChevronDownIcon } from "@/components/icons";
 
 export default function Home() {
   const featured = projects.slice(0, 3);
@@ -42,7 +15,6 @@ export default function Home() {
     <>
       {/* Hero */}
       <section className="relative flex min-h-[max(calc(100dvh-4rem),600px)] items-center justify-center overflow-hidden">
-        {/* Subtle dot grid */}
         <div
           className="pointer-events-none absolute inset-0 opacity-[0.03] dark:opacity-[0.04]"
           style={{
@@ -51,7 +23,6 @@ export default function Home() {
             backgroundSize: "24px 24px",
           }}
         />
-        {/* Centered subtle glow */}
         <div className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[600px] w-[600px] rounded-full bg-amber-500/[0.03] blur-3xl" />
 
         <div className="relative mx-auto max-w-5xl px-6 py-16 text-center">
@@ -81,7 +52,9 @@ export default function Home() {
             className="animate-in mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-muted sm:text-xl"
             style={{ animationDelay: "300ms" }}
           >
-            {siteConfig.description}
+            I architect cloud infrastructure, build full-stack systems, and
+            engineer data pipelines. <ExperienceYears /> years of shipping
+            production software across enterprise and startups.
           </p>
           <div
             className="animate-in mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row"
@@ -92,18 +65,7 @@ export default function Home() {
               className="inline-flex h-12 items-center justify-center rounded-full bg-gradient-to-r from-amber-600 to-orange-600 px-8 text-sm font-medium text-white transition-opacity hover:opacity-90 dark:from-amber-500 dark:to-orange-500"
             >
               View my work
-              <svg
-                className="ml-2 h-4 w-4"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <line x1="5" y1="12" x2="19" y2="12" />
-                <polyline points="12 5 19 12 12 19" />
-              </svg>
+              <ArrowRightIcon className="ml-2 h-4 w-4" />
             </Link>
             <Link
               href="/contact"
@@ -113,7 +75,6 @@ export default function Home() {
             </Link>
           </div>
 
-          {/* Scroll indicator */}
           <div
             className="animate-in mt-16"
             style={{ animationDelay: "600ms" }}
@@ -123,19 +84,7 @@ export default function Home() {
               className="inline-block text-muted/50 transition-colors hover:text-muted"
               aria-label="Scroll down"
             >
-              <svg
-                width="20"
-                height="20"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="animate-bounce"
-              >
-                <polyline points="6 9 12 15 18 9" />
-              </svg>
+              <ChevronDownIcon className="w-5 h-5 animate-bounce" />
             </a>
           </div>
         </div>
@@ -145,14 +94,7 @@ export default function Home() {
       <section id="work" className="border-t border-line py-24 scroll-mt-16">
         <div className="mx-auto max-w-5xl px-6">
           <div className="flex items-end justify-between">
-            <div>
-              <p className="text-sm font-medium tracking-widest text-accent uppercase">
-                Selected work
-              </p>
-              <h2 className="mt-2 text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
-                Featured Projects
-              </h2>
-            </div>
+            <SectionHeader label="Selected work" title="Featured Projects" />
             <Link
               href="/projects"
               className="hidden text-sm text-muted transition-colors hover:text-accent sm:block"
@@ -180,17 +122,12 @@ export default function Home() {
                 </p>
                 <div className="mt-4 flex flex-wrap gap-1.5">
                   {project.technologies.slice(0, 4).map((tech) => (
-                    <span
-                      key={tech}
-                      className="rounded-md bg-surface px-2 py-0.5 text-xs text-muted"
-                    >
-                      {tech}
-                    </span>
+                    <TechBadge key={tech} name={tech} />
                   ))}
                   {project.technologies.length > 4 && (
-                    <span className="rounded-md bg-surface px-2 py-0.5 text-xs text-muted">
-                      +{project.technologies.length - 4}
-                    </span>
+                    <TechBadge
+                      name={`+${project.technologies.length - 4}`}
+                    />
                   )}
                 </div>
               </div>
@@ -211,12 +148,7 @@ export default function Home() {
       {/* Skills */}
       <section className="border-t border-line py-24">
         <div className="mx-auto max-w-5xl px-6">
-          <p className="text-sm font-medium tracking-widest text-accent uppercase">
-            Expertise
-          </p>
-          <h2 className="mt-2 text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
-            Skills &amp; Technologies
-          </h2>
+          <SectionHeader label="Expertise" title="Skills & Technologies" />
 
           <div className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
             {skillCategories.map((category) => {
@@ -232,8 +164,9 @@ export default function Home() {
                     {category.skills.map((skill) => (
                       <span
                         key={skill}
-                        className={`rounded-full border px-3 py-1 text-sm transition-colors ${colors?.pill || "border-line text-muted"}`}
+                        className={`inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-sm transition-colors ${colors?.pill || "border-line text-muted"}`}
                       >
+                        <SkillIcon name={skill} />
                         {skill}
                       </span>
                     ))}

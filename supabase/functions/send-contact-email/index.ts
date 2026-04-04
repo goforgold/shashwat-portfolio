@@ -1,12 +1,34 @@
 import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 
-const RESEND_API_KEY = Deno.env.get("RESEND_API_KEY")!;
-const TO_EMAIL = "me@shashwat.io";
+const RESEND_API_KEY = Deno.env.get("RESEND_API_KEY");
+const TO_EMAIL = Deno.env.get("CONTACT_TO_EMAIL") ?? "me@shashwat.io";
+const FROM_EMAIL = Deno.env.get("CONTACT_FROM_EMAIL") ??
+  "Portfolio Contact <contact@shashwat.io>";
+
+function escapeHtml(str: string): string {
+  return str
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}
 
 Deno.serve(async (req) => {
+  if (!RESEND_API_KEY) {
+    return new Response(
+      JSON.stringify({ error: "RESEND_API_KEY not configured" }),
+      { status: 500 },
+    );
+  }
+
   try {
     const payload = await req.json();
     const { name, email, message } = payload.record;
+
+    const safeName = escapeHtml(name);
+    const safeEmail = escapeHtml(email);
+    const safeMessage = escapeHtml(message).replace(/\n/g, "<br>");
 
     const res = await fetch("https://api.resend.com/emails", {
       method: "POST",
@@ -15,15 +37,15 @@ Deno.serve(async (req) => {
         Authorization: `Bearer ${RESEND_API_KEY}`,
       },
       body: JSON.stringify({
-        from: "Portfolio Contact <contact@shashwat.io>",
+        from: FROM_EMAIL,
         to: [TO_EMAIL],
-        subject: `New message from ${name}`,
+        subject: `New message from ${safeName}`,
         html: `
           <h2>New Contact Form Submission</h2>
-          <p><strong>Name:</strong> ${name}</p>
-          <p><strong>Email:</strong> ${email}</p>
+          <p><strong>Name:</strong> ${safeName}</p>
+          <p><strong>Email:</strong> ${safeEmail}</p>
           <p><strong>Message:</strong></p>
-          <p>${message.replace(/\n/g, "<br>")}</p>
+          <p>${safeMessage}</p>
         `,
         reply_to: email,
       }),

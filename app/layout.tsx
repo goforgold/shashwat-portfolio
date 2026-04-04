@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import { ThemeProvider } from "@/components/theme-provider";
+import { getExperienceYears } from "@/lib/data";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -15,13 +16,14 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const expYears = getExperienceYears();
+
 export const metadata: Metadata = {
   title: {
     default: "Shashwat Tripathi — Full Stack Engineer & Cloud Architect",
     template: "%s | Shashwat Tripathi",
   },
-  description:
-    "Full Stack Engineer & Cloud Architect with 10+ years of experience building scalable systems, cloud infrastructure, and data pipelines.",
+  description: `Full Stack Engineer & Cloud Architect with ${expYears} years of experience building scalable systems, cloud infrastructure, and data pipelines.`,
   keywords: [
     "Full Stack Engineer",
     "Cloud Architect",
@@ -38,8 +40,7 @@ export const metadata: Metadata = {
     locale: "en_US",
     siteName: "Shashwat Tripathi",
     title: "Shashwat Tripathi — Full Stack Engineer & Cloud Architect",
-    description:
-      "Full Stack Engineer & Cloud Architect with 10+ years of experience building scalable systems, cloud infrastructure, and data pipelines.",
+    description: `Full Stack Engineer & Cloud Architect with ${expYears} years of experience building scalable systems, cloud infrastructure, and data pipelines.`,
   },
 };
 

@@ -3,6 +3,7 @@
 import { useState } from "react";
 import type { FormEvent } from "react";
 import { getSupabase } from "@/lib/supabase";
+import { CheckIcon } from "./icons";
 
 export function ContactForm() {
   const [submitted, setSubmitted] = useState(false);
@@ -35,18 +36,7 @@ export function ContactForm() {
     return (
       <div className="flex h-64 flex-col items-center justify-center rounded-xl border border-line text-center">
         <div className="flex h-12 w-12 items-center justify-center rounded-full bg-emerald-500/10 text-emerald-500">
-          <svg
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <polyline points="20 6 9 17 4 12" />
-          </svg>
+          <CheckIcon className="w-6 h-6" />
         </div>
         <p className="mt-4 text-lg font-semibold text-foreground">
           Message sent
